@@ -12,11 +12,12 @@
   ],
   "scripts": {
     "build": "npm run build --workspaces",
+    "dev": "npm run dev -w @om-studio/frontend",
     "dev:frontend": "npm run dev -w @om-studio/frontend",
-    "dev:backend": "npm run start:dev -w @om-studio/backend",
     "lint": "npm run lint --workspaces --if-present",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "preview": "npm run preview -w @om-studio/frontend",
     "test": "npm run test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present"
   },

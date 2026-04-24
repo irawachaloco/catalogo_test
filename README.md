@@ -2,11 +2,16 @@
 
 Monorepo scaffold for the OM Studio gallery project.
 
+Current MVP direction:
+
+- deploy as a static site on GitHub Pages
+- frontend is the MVP delivery target
+- content is served from static frontend data files
+
 Current structure:
 
 ```text
 apps/
-  backend/        NestJS + Fastify API
   frontend/       React + Vite app
 packages/
   shared-types/   Shared TypeScript contracts
@@ -38,9 +43,15 @@ From the repo root:
 npm install
 ```
 
-## Run The Apps
+## Run The App
 
 Frontend dev server:
+
+```bash
+npm run dev
+```
+
+or:
 
 ```bash
 npm run dev:frontend
@@ -48,23 +59,18 @@ npm run dev:frontend
 
 - App URL: `http://localhost:5173`
 
-Backend dev server:
-
-```bash
-npm run dev:backend
-```
-
-- API URL: `http://localhost:3000`
-- Health endpoint: `http://localhost:3000/health`
-
-Run the frontend and backend in separate terminals.
-
 ## Build
 
 Build all workspaces:
 
 ```bash
 npm run build
+```
+
+Preview the production build locally:
+
+```bash
+npm run preview
 ```
 
 ## Test
@@ -77,7 +83,6 @@ npm test
 
 Current test stack:
 
-- Backend: Jest
 - Frontend: Vitest + Testing Library
 
 ## Lint And Typecheck
@@ -112,16 +117,29 @@ Run a command for only one workspace:
 
 ```bash
 npm run test -w @om-studio/frontend
-npm run test -w @om-studio/backend
 npm run typecheck -w @om-studio/shared-types
 ```
 
+## GitHub Pages Deployment
+
+The repo includes a GitHub Actions workflow at [.github/workflows/deploy-pages.yml](/Users/omar/Documents/repos/catalogo_test/.github/workflows/deploy-pages.yml:1).
+
+It will:
+
+- install dependencies with `npm ci`
+- run `npm run typecheck`
+- run `npm test`
+- run `npm run build`
+- publish `apps/frontend/dist` to GitHub Pages
+
+The Vite config is set up to use the repository base path `/catalogo_test/` during GitHub Actions builds.
+
 ## Current Scope
 
-This repo is currently at the Phase 1 scaffold stage:
+This repo is currently at the Phase 1 scaffold stage, and the plan has shifted to a GitHub Pages MVP:
 
 - workspace layout is in place
-- frontend and backend app skeletons exist
+- frontend app is the MVP target
 - shared types package exists
 - lint, formatting, and test runners are configured
 

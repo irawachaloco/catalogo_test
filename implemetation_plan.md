@@ -1,70 +1,19 @@
 # OM Studio Implementation Plan
 
-## 1. Recommended Backend Frameworks
+## 1. Delivery Constraint
 
-### Recommended Choice: NestJS with Fastify Adapter
+The MVP must be deployable to GitHub Pages.
 
-This is the best fit for the current project.
+That changes the implementation strategy in a material way:
 
-Why:
+- the MVP must run as a static frontend application
+- no custom backend server is part of the MVP
+- no server-side authentication is part of the MVP
+- no private email-routing endpoint is part of the MVP
 
-- NestJS is built with TypeScript support and provides a strong modular architecture for separating product, inquiry, content, i18n, and admin concerns.
-- NestJS is well-suited for teams because it gives a predictable structure around controllers, services, modules, validation, and testing.
-- NestJS can run on Fastify, which gives better runtime performance than using Express directly while keeping Nest's architecture.
-- The project is small now, but the requirements already point toward future growth into e-commerce, admin workflows, and more backend logic. NestJS handles that transition better than a minimal framework.
-
-Recommended backend stack:
-
-- Framework: NestJS
-- HTTP adapter: Fastify
-- Language: TypeScript
-- Validation: Nest validation pipeline
-- Tests: Jest or Vitest, with a preference for Jest if the team uses standard Nest scaffolding
-
-Official sources:
-
-- NestJS docs: https://docs.nestjs.com/
-- NestJS overview: https://docs.nestjs.com/
-- Fastify docs: https://fastify.dev/docs/latest/
-
-### Alternative 1: Fastify
-
-Why consider it:
-
-- Very fast and lightweight
-- Good plugin model
-- Strong JSON schema support
-
-Why not the primary recommendation:
-
-- It gives less structure out of the box than NestJS
-- The team would need to define more architecture conventions manually
-- It is a better fit for teams that already know how they want to organize services and modules
-
-Official source:
-
-- Fastify docs: https://fastify.dev/docs/latest/
-
-### Alternative 2: Hono
-
-Why consider it:
-
-- Very lightweight
-- TypeScript-friendly
-- Simple setup
-
-Why not the primary recommendation:
-
-- Better suited for very small APIs or edge-style deployments
-- Less aligned with the planned growth toward a more feature-rich admin and future commerce flows
-
-Official source:
-
-- Hono docs: https://hono.dev/docs/
+Because GitHub Pages only hosts static assets, any feature that requires a protected server, hidden secrets, or runtime persistence must be deferred or replaced with a static alternative.
 
 ## 2. Recommended Frontend Stack
-
-Frontend requirements are fixed to React and TypeScript.
 
 Recommended frontend stack:
 
@@ -72,230 +21,110 @@ Recommended frontend stack:
 - Build tool: Vite
 - Language: TypeScript
 - Routing: React Router
-- Styling: CSS modules or Tailwind CSS, depending on team preference
-- Localization: `react-i18next` or equivalent
+- Styling: CSS modules or plain CSS
+- Localization: simple in-app dictionaries or `react-i18next`
 - Tests: Vitest + React Testing Library
+- Deployment target: GitHub Pages
 
-## 3. Delivery Strategy
+## 3. MVP Product Scope
 
-The v1 site should be implemented as two separate applications:
+The MVP should focus on a polished static gallery experience.
 
-- Frontend application
-- Backend application
+In scope for the GitHub Pages MVP:
 
-The backend should expose a simple API consumed by the React frontend.
+- public marketing site
+- bilingual shell with Spanish as default
+- gallery page
+- product detail page
+- About page
+- Contact page
+- static product/content data stored in the frontend repo
+- deployment to GitHub Pages
 
-Important constraint for v1:
+Out of scope for the GitHub Pages MVP:
 
-- All data is hardcoded
-- No database is required in this phase
-- Admin changes should be treated as in-memory changes only unless the team explicitly adds a mock persistence layer
-- If the server restarts, data resets to its seeded hardcoded state
+- backend API
+- protected admin area
+- login
+- in-browser content editing
+- private email relay
+- durable content management
 
-This keeps the first implementation simple while preserving a clean boundary for later replacement with a real database and storage system.
+## 4. Feature Adjustments Required By GitHub Pages
 
-## 4. High-Level Architecture
+### Inquiry Flow
+
+The original requirements assumed a backend-mediated inquiry flow so the destination email address would not be exposed publicly.
+
+That is not compatible with a GitHub Pages-only MVP.
+
+For the MVP, choose one of these static alternatives:
+
+- link users to Instagram DM
+- show a public contact email
+- use a third-party hosted form service later
+
+Recommended MVP choice:
+
+- use Instagram as the primary contact CTA
+- optionally display a public contact email if the business accepts that tradeoff
+
+### Admin Area
+
+The original plan included an admin area for product and content management.
+
+That is not compatible with a GitHub Pages-only MVP unless a third-party CMS or hosted backend is introduced.
+
+For the MVP:
+
+- manage products and page content directly in repository data files
+- treat content updates as developer or maintainer edits followed by redeployment
+
+### Data Storage
+
+All MVP data should live in static TypeScript or JSON files inside the frontend codebase.
+
+Recommended content sources:
+
+```text
+src/data/products.ts
+src/data/about.ts
+src/data/contact.ts
+src/data/site.ts
+```
+
+## 5. High-Level Architecture
 
 ### Frontend Responsibilities
 
-- Render the public website
-- Render the admin UI
-- Fetch data from the backend API
-- Handle language switching
-- Submit product inquiry forms
-- Manage authenticated admin session UI state
+- render the public website
+- render the bilingual UI
+- load static product and page content from local data modules
+- render product detail views
+- expose contact CTAs
 
-### Backend Responsibilities
+### Data Responsibilities
 
-- Serve public API endpoints for products and content
-- Serve admin API endpoints for mock CRUD operations
-- Validate incoming requests
-- Handle inquiry submission and email service integration boundary
-- Enforce admin authentication
-- Own hardcoded source data and in-memory mutations
+- keep product and page content in version-controlled frontend data files
+- keep bilingual content co-located with the relevant content model
+- keep image references as static assets or hosted image URLs
 
-## 5. Proposed Repository Structure
+## 6. Proposed Repository Structure
 
-If using a monorepo:
+Recommended MVP structure:
 
 ```text
 /apps
   /frontend
-  /backend
 /packages
   /shared-types
 ```
 
-If using separate repos, keep the same logical split:
-
-- `frontend`
-- `backend`
-- optional shared TypeScript package for contracts
-
-## 6. Backend Module Plan
-
-Recommended backend architecture using NestJS modules.
-
-### 6.1 Core Modules
-
-#### `app`
-
-Responsibility:
-
-- App bootstrap
-- global middleware
-- CORS
-- validation setup
-- route registration
-
-#### `config`
-
-Responsibility:
-
-- environment configuration
-- feature flags
-- admin credentials configuration
-- email provider configuration placeholders
-
-#### `auth`
-
-Responsibility:
-
-- admin login endpoint
-- session or token issuance
-- route protection for admin endpoints
-
 Notes:
 
-- For v1, a single admin user is enough
-- Credentials can come from environment variables
-
-#### `products`
-
-Responsibility:
-
-- expose public product data
-- expose admin CRUD for products
-- manage in-memory product list seeded from hardcoded fixtures
-
-Product model fields:
-
-- `id`
-- `slug`
-- `name`
-- `photos`
-- `dimensions`
-- `material`
-- `price`
-- `currency`
-- `availability`
-- `localeContent`
-
-#### `content`
-
-Responsibility:
-
-- manage About page content
-- manage Contact page content
-- expose public and admin content endpoints
-- store seeded bilingual page content in memory
-
-#### `inquiries`
-
-Responsibility:
-
-- receive product inquiry submissions
-- validate request payloads
-- map inquiries to product references
-- forward inquiries to an email service abstraction
-
-Notes:
-
-- For v1, the implementation can use a mock email adapter if no real email service exists yet
-- The backend must never expose the destination email address to the client
-
-#### `i18n`
-
-Responsibility:
-
-- language normalization
-- content mapping between Spanish and English
-- fallback behavior
-
-#### `health`
-
-Responsibility:
-
-- lightweight health endpoint for deployment verification
-
-### 6.2 Backend Data Strategy
-
-Use hardcoded seed files in TypeScript:
-
-```text
-src/seeds/products.seed.ts
-src/seeds/content.seed.ts
-src/seeds/admin.seed.ts
-```
-
-Behavior:
-
-- Application starts with hardcoded data
-- Services load seed data into memory
-- Admin actions mutate in-memory state
-- No persistence across restarts
-
-### 6.3 Backend API Plan
-
-Public endpoints:
-
-- `GET /api/products`
-- `GET /api/products/:slug`
-- `GET /api/content/about`
-- `GET /api/content/contact`
-- `POST /api/inquiries`
-
-Admin endpoints:
-
-- `POST /api/admin/auth/login`
-- `POST /api/admin/auth/logout`
-- `GET /api/admin/products`
-- `POST /api/admin/products`
-- `PUT /api/admin/products/:id`
-- `DELETE /api/admin/products/:id`
-- `PUT /api/admin/content/about`
-- `PUT /api/admin/content/contact`
-
-### 6.4 Backend Validation Rules
-
-Validate at minimum:
-
-- inquiry name required
-- inquiry email valid
-- inquiry message required
-- product reference required
-- price must be numeric
-- availability limited to `Disponible` and `Vendido`
-- required bilingual fields enforced where applicable
-
-### 6.5 Backend Unit Test Plan
-
-Unit tests should cover:
-
-- product service returns seeded products correctly
-- product service filters or maps by locale correctly
-- product service updates availability correctly
-- content service returns About and Contact content correctly
-- inquiry service validates payloads
-- inquiry service attaches the correct product reference
-- auth service accepts valid admin credentials and rejects invalid ones
-- DTO or schema validation rejects malformed requests
-
-Additional API-level tests recommended:
-
-- public product endpoints return expected shapes
-- inquiry endpoint rejects invalid payloads
-- admin endpoints reject unauthenticated access
+- the existing backend scaffold can remain temporarily while the repo transitions
+- it is no longer part of the MVP plan
+- future hosted services can be added later if admin or private inquiry routing becomes necessary
 
 ## 7. Frontend Module Plan
 
@@ -334,30 +163,21 @@ Responsibility:
 
 - render detailed product view
 - show photos, dimensions, material, price, and availability
-- provide inquiry CTA
+- provide contact CTA
 
 #### `pages/about`
 
 Responsibility:
 
-- render bilingual About content fetched from the backend
+- render bilingual About content from static data
 
 #### `pages/contact`
 
 Responsibility:
 
-- render contact information from backend
+- render static contact guidance
 - render Instagram link
-- optionally render general contact guidance if defined later
-
-#### `pages/admin`
-
-Responsibility:
-
-- admin login screen
-- protected admin dashboard
-- product management UI
-- content management UI
+- optionally render public email or other public contact method
 
 ### 7.2 Shared Frontend Modules
 
@@ -369,15 +189,6 @@ Responsibility:
 - product gallery grid
 - product badge for availability
 - product detail image gallery
-
-#### `components/forms`
-
-Responsibility:
-
-- inquiry form
-- admin product form
-- admin content form
-- validation message rendering
 
 #### `components/layout`
 
@@ -394,23 +205,15 @@ Responsibility:
 
 - translation dictionaries for UI chrome
 - locale switching
-- default Spanish routing behavior
+- default Spanish behavior
 
-#### `features/api`
-
-Responsibility:
-
-- typed API client
-- request/response mapping
-- auth token handling
-
-#### `features/auth`
+#### `features/content`
 
 Responsibility:
 
-- admin login state
-- route guards
-- session storage handling
+- static data loading
+- locale-aware mapping
+- content selectors
 
 ### 7.3 Frontend Route Plan
 
@@ -422,40 +225,13 @@ Public routes:
 - `/about`
 - `/contact`
 
-Admin routes:
-
-- `/admin/login`
-- `/admin`
-- `/admin/products`
-- `/admin/content`
-
 ### 7.4 Frontend State Plan
 
 Use a simple approach:
 
-- server state via fetch layer or TanStack Query
-- local form state inside components
-- auth session state in context or a small store
-
-Because v1 is small, avoid adding heavy state management unless the team already standardizes on it.
-
-### 7.5 Frontend Unit Test Plan
-
-Unit tests should cover:
-
-- product card renders price and availability correctly
-- product detail page renders all required fields
-- inquiry form validates required fields before submit
-- language switcher changes visible UI language
-- admin route guard blocks unauthenticated access
-- admin product form submits expected payload shape
-- About and Contact pages render API content correctly
-
-Additional UI integration tests recommended:
-
-- visitor can navigate from gallery to product detail
-- visitor can submit an inquiry for a product
-- admin can log in and update a product in memory
+- static content imports for site data
+- local component state for UI interactions
+- no remote server state layer in the MVP
 
 ## 8. Shared TypeScript Contracts
 
@@ -463,71 +239,58 @@ Create a shared types package or shared folder for:
 
 - `Product`
 - `AvailabilityStatus`
-- `InquiryRequest`
-- `InquiryResponse`
+- `LocalizedText`
 - `AboutContent`
 - `ContactContent`
-- `AdminLoginRequest`
-- API response envelopes if used
 
-This reduces drift between frontend and backend.
+This keeps the content structure consistent even without a backend.
 
 ## 9. Implementation Phases
 
 ### Phase 1: Project Setup
 
 - initialize frontend React + TypeScript app
-- initialize backend NestJS + TypeScript app
 - configure linting, formatting, and test runners
 - define shared types
+- configure GitHub Pages deployment path expectations
 
-### Phase 2: Backend Foundations
+### Phase 2: Static Content Foundations
 
-- create backend module structure
-- add seed data files
-- implement public products and content endpoints
-- implement inquiry endpoint with mock email service
-- add auth guard and mock admin login
+- add static seed data files for products and page content
+- define bilingual content structure
+- define image asset strategy
+- add content access helpers/selectors
 
-### Phase 3: Frontend Public Site
+### Phase 3: Public Site
 
 - build layout and navigation
 - implement bilingual shell
 - build Gallery page
 - build Product Detail page
 - build About and Contact pages
-- connect to backend API
+- wire pages to static content
 
-### Phase 4: Admin Area
+### Phase 4: Deployment Hardening
 
-- implement admin login
-- build product list and edit flows
-- build About and Contact content management
-- wire admin changes to in-memory backend services
-
-### Phase 5: Testing and Hardening
-
-- add unit tests for backend services
-- add unit tests for frontend components and forms
-- add selected API and UI integration tests
+- verify GitHub Pages routing strategy
+- verify production asset paths
 - verify responsive behavior
 - verify language switching and availability rendering
 
+### Phase 5: Future Extensions
+
+- evaluate hosted form service for inquiries
+- evaluate headless CMS or hosted backend for admin editing
+- evaluate protected admin workflow outside GitHub Pages
+
 ## 10. Testing Scope
-
-### Backend
-
-- service unit tests
-- controller or route tests
-- validation tests
-- auth guard tests
 
 ### Frontend
 
 - component unit tests
-- form validation tests
-- route protection tests
-- page rendering tests
+- content rendering tests
+- route rendering tests
+- language switch tests
 
 ### End-to-End Smoke Tests
 
@@ -535,45 +298,42 @@ At minimum, automate these smoke flows:
 
 - browse gallery
 - open product detail
-- submit inquiry
-- admin login
-- update product availability
+- switch language
+- navigate to About and Contact
 
 ## 11. Risks and Constraints
 
 ### Main Risks
 
-- Hardcoded data means admin edits are not durable across restarts
-- Bilingual content doubles content management effort
-- Product photo handling can become complex if image hosting is deferred too long
-- Mock authentication is sufficient for v1 but not for production-hardening without follow-up work
+- static hosting prevents private secret handling
+- no admin area means content updates require repo changes and redeploys
+- inquiry flow tradeoffs may reduce convenience or privacy
+- GitHub Pages SPA routing can require deployment-specific configuration
 
 ### Mitigations
 
-- keep data access behind service interfaces
-- keep frontend fully API-driven
-- isolate authentication, inquiry, and content modules
-- treat image storage as a replaceable service boundary
+- keep content in clear structured data files
+- keep frontend architecture modular so hosted services can be added later
+- use GitHub Pages-compatible routing and asset settings from the start
+- explicitly treat admin and private inquiry routing as post-MVP hosted-service work
 
 ## 12. Recommended Technical Decisions
 
-- Use NestJS with Fastify for the backend
 - Use React + Vite for the frontend
-- Use TypeScript across both applications
-- Keep a strict API contract between frontend and backend
-- Keep data in TypeScript seed files for v1
-- Use unit tests from the first iteration, not as a later cleanup step
+- Use TypeScript across the codebase
+- Keep all MVP data in static TypeScript files
+- Optimize for GitHub Pages deployment simplicity
+- Use unit tests from the first iteration, not as later cleanup
 
 ## 13. Definition of Done
 
-The implementation should be considered complete when:
+The MVP should be considered complete when:
 
-- the frontend and backend run as separate applications
-- all public pages from the requirements document are implemented
-- products are served from backend hardcoded data
-- admin can log in and update content in memory
-- inquiry submission works through the backend
-- the public site never exposes the destination email address
+- the site builds as a static frontend and deploys to GitHub Pages
+- all public pages from the adjusted MVP scope are implemented
+- products are served from static frontend data
 - Spanish is the default language and English is supported
-- unit tests exist for core backend and frontend modules
-- smoke-level integration coverage exists for the primary user flows
+- gallery and product detail pages render the required product information
+- Contact page provides a clear public contact path
+- unit tests exist for core frontend modules
+- smoke-level coverage exists for the primary public user flows
