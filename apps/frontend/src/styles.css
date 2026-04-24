@@ -85,6 +85,10 @@ a {
   gap: 1.25rem;
 }
 
+.page-shell {
+  min-height: 60vh;
+}
+
 .site-header,
 .site-footer {
   background: rgba(255, 250, 245, 0.82);
@@ -349,6 +353,13 @@ a {
   padding: 1rem 1.5rem;
 }
 
+@media (max-width: 880px) {
+  .hero-home,
+  .product-detail {
+    grid-template-columns: 1fr;
+  }
+}
+
 .skip-link {
   position: absolute;
   left: 1rem;
@@ -372,13 +383,8 @@ a {
     padding: 1.5rem;
   }
 
-  .site-header,
-  .hero-home,
-  .product-detail {
-    grid-template-columns: 1fr;
-  }
-
   .site-header {
+    display: grid;
     align-items: stretch;
   }
 

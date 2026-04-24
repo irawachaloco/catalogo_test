@@ -47,4 +47,30 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: /hablemos de una pieza/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /hola@omstudio.mx/i })).toBeInTheDocument();
   });
+
+  it('renders gallery availability labels in the active locale', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <MemoryRouter initialEntries={['/gallery']}>
+        <App />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getAllByText(/disponible|vendido/i).length).toBeGreaterThan(0);
+
+    await user.click(screen.getByRole('button', { name: 'EN' }));
+
+    expect(screen.getAllByText(/available|sold/i).length).toBeGreaterThan(0);
+  });
+
+  it('renders the catch-all not found route', () => {
+    render(
+      <MemoryRouter initialEntries={['/missing-page']}>
+        <App />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole('heading', { name: /pieza no encontrada/i })).toBeInTheDocument();
+  });
 });

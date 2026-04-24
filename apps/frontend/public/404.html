@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OM Studio</title>
+    <script>
+      (function () {
+        var repositoryBase = '/catalogo_test';
+        var currentPath = window.location.pathname;
+        var relativePath = currentPath.indexOf(repositoryBase) === 0
+          ? currentPath.slice(repositoryBase.length)
+          : currentPath;
+
+        var redirectTarget =
+          repositoryBase +
+          '/?p=' +
+          encodeURIComponent(relativePath || '/') +
+          '&q=' +
+          encodeURIComponent(window.location.search.slice(1)) +
+          '&h=' +
+          encodeURIComponent(window.location.hash.slice(1));
+
+        window.location.replace(redirectTarget);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
