@@ -1,0 +1,32 @@
+{
+  "name": "om-studio",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "^20.19.0 || >=22.13.0",
+    "npm": ">=10"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "dev:frontend": "npm run dev -w @om-studio/frontend",
+    "dev:backend": "npm run start:dev -w @om-studio/backend",
+    "lint": "npm run lint --workspaces --if-present",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.24.0",
+    "@types/node": "^22.14.1",
+    "eslint": "^9.24.0",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.29.0"
+  }
+}
