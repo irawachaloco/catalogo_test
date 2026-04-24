@@ -7,6 +7,18 @@ export interface LocalizedText {
   en: string;
 }
 
+export interface LocalizedRichText {
+  es: string[];
+  en: string[];
+}
+
+export interface ImageAsset {
+  id: string;
+  src: string;
+  storagePath: string;
+  alt: LocalizedText;
+}
+
 export interface ProductSummary {
   id: string;
   name: LocalizedText;
@@ -20,6 +32,25 @@ export interface ProductDetail extends ProductSummary {
   dimensions: LocalizedText;
   material: LocalizedText;
   imageUrls: string[];
+}
+
+export interface SiteNavigationItem {
+  id: string;
+  label: LocalizedText;
+  href: string;
+}
+
+export interface SitePageContent {
+  heroTitle: LocalizedText;
+  heroBody: LocalizedRichText;
+  galleryIntro: LocalizedText;
+  aboutTitle: LocalizedText;
+  aboutBody: LocalizedRichText;
+  contactTitle: LocalizedText;
+  contactBody: LocalizedRichText;
+  contactEmail: string;
+  instagramUrl: string;
+  navigation: SiteNavigationItem[];
 }
 
 export interface InquiryPayload {
