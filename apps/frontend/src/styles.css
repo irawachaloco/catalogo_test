@@ -1,9 +1,19 @@
 :root {
+  --color-deep-teal: #105057;
+  --color-stone: #898c8b;
+  --color-pink: #ff81d0;
+  --color-plum: #400036;
+  --color-olive: #919151;
+  --color-surface: #fbf7fa;
+  --color-surface-muted: #eef1f0;
+  --color-text: var(--color-plum);
+  --color-text-muted: #4f5a5a;
+  --color-border: rgba(16, 80, 87, 0.16);
+  --shadow-soft: 0 16px 40px rgba(64, 0, 54, 0.1);
+
   font-family: 'Iowan Old Style', 'Palatino Linotype', serif;
-  color: #1f1a17;
-  background:
-    radial-gradient(circle at top, rgba(207, 164, 115, 0.18), transparent 35%),
-    linear-gradient(180deg, #f4ede3 0%, #efe5d7 100%);
+  color: var(--color-text);
+  background: var(--color-surface-muted);
   line-height: 1.5;
   font-weight: 400;
 }
@@ -38,10 +48,10 @@ a {
 .hero,
 .status-grid article,
 .panel {
-  background: rgba(255, 250, 245, 0.85);
-  border: 1px solid rgba(82, 58, 40, 0.12);
+  background: rgba(251, 247, 250, 0.9);
+  border: 1px solid var(--color-border);
   border-radius: 24px;
-  box-shadow: 0 16px 40px rgba(76, 52, 35, 0.08);
+  box-shadow: var(--shadow-soft);
 }
 
 .hero {
@@ -60,7 +70,7 @@ a {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-size: 0.85rem;
-  color: #7a5430;
+  color: var(--color-deep-teal);
 }
 
 .hero h1 {
@@ -91,10 +101,10 @@ a {
 
 .site-header,
 .site-footer {
-  background: rgba(255, 250, 245, 0.82);
-  border: 1px solid rgba(82, 58, 40, 0.12);
+  background: rgba(251, 247, 250, 0.88);
+  border: 1px solid var(--color-border);
   border-radius: 24px;
-  box-shadow: 0 16px 40px rgba(76, 52, 35, 0.06);
+  box-shadow: var(--shadow-soft);
 }
 
 .site-header {
@@ -110,7 +120,7 @@ a {
 .page-heading p,
 .hero-detail-line {
   margin: 0;
-  color: #5c4431;
+  color: var(--color-text-muted);
 }
 
 .header-actions {
@@ -132,7 +142,7 @@ a {
   display: inline-flex;
   padding: 0.5rem 0.8rem;
   border-radius: 999px;
-  color: #68492e;
+  color: var(--color-deep-teal);
 }
 
 .site-nav a.active,
@@ -143,7 +153,7 @@ a {
 .inline-link:focus-visible,
 .locale-switcher button:hover,
 .locale-switcher button:focus-visible {
-  background: rgba(197, 134, 82, 0.14);
+  background: rgba(255, 129, 208, 0.18);
 }
 
 .locale-switcher {
@@ -157,14 +167,14 @@ a {
 
 .locale-switcher legend {
   font-size: 0.82rem;
-  color: #7a5430;
+  color: var(--color-deep-teal);
   margin-right: 0.35rem;
 }
 
 .locale-switcher button {
-  border: 1px solid rgba(122, 84, 48, 0.22);
-  background: rgba(255, 250, 245, 0.9);
-  color: #5c4431;
+  border: 1px solid rgba(16, 80, 87, 0.24);
+  background: rgba(251, 247, 250, 0.94);
+  color: var(--color-deep-teal);
   padding: 0.45rem 0.75rem;
   border-radius: 999px;
   cursor: pointer;
@@ -172,8 +182,8 @@ a {
 }
 
 .locale-switcher button.is-active {
-  background: #7a5430;
-  color: #fffaf5;
+  background: var(--color-deep-teal);
+  color: var(--color-surface);
 }
 
 .page-heading,
@@ -210,19 +220,19 @@ a {
 
 .button-link {
   padding: 0.75rem 1.15rem;
-  background: #7a5430;
-  color: #fffaf5;
-  border: 1px solid #7a5430;
+  background: var(--color-deep-teal);
+  color: var(--color-surface);
+  border: 1px solid var(--color-deep-teal);
 }
 
 .button-link-secondary {
   background: transparent;
-  color: #7a5430;
+  color: var(--color-deep-teal);
 }
 
 .inline-link {
   padding: 0.25rem 0;
-  color: #7a5430;
+  color: var(--color-deep-teal);
 }
 
 .hero-visual {
@@ -235,7 +245,7 @@ a {
 .product-detail-image {
   width: 100%;
   border-radius: 20px;
-  border: 1px solid rgba(82, 58, 40, 0.12);
+  border: 1px solid var(--color-border);
   object-fit: cover;
 }
 
@@ -251,11 +261,11 @@ a {
 }
 
 .product-card {
-  background: rgba(255, 250, 245, 0.85);
-  border: 1px solid rgba(82, 58, 40, 0.12);
+  background: rgba(251, 247, 250, 0.9);
+  border: 1px solid var(--color-border);
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 16px 40px rgba(76, 52, 35, 0.08);
+  box-shadow: var(--shadow-soft);
 }
 
 .product-card-body {
@@ -266,7 +276,7 @@ a {
 
 .product-card-body p {
   margin: 0;
-  color: #5c4431;
+  color: var(--color-text-muted);
 }
 
 .product-card-header {
@@ -284,13 +294,13 @@ a {
 }
 
 .availability-available {
-  background: rgba(84, 125, 99, 0.16);
-  color: #35533f;
+  background: rgba(145, 145, 81, 0.18);
+  color: #4f501c;
 }
 
 .availability-sold {
-  background: rgba(134, 93, 67, 0.14);
-  color: #724029;
+  background: rgba(137, 140, 139, 0.2);
+  color: #535655;
 }
 
 .product-facts {
@@ -308,12 +318,12 @@ a {
   font-size: 0.82rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #7a5430;
+  color: var(--color-deep-teal);
 }
 
 .product-facts dd {
   margin: 0;
-  color: #5c4431;
+  color: var(--color-text-muted);
 }
 
 .product-detail {
@@ -338,7 +348,7 @@ a {
 .product-price {
   margin: 0;
   font-size: 1.35rem;
-  color: #7a5430;
+  color: var(--color-deep-teal);
 }
 
 .product-facts-detail {
@@ -367,15 +377,15 @@ a {
 }
 
 .studio-video-copy p {
-  color: #5c4431;
+  color: var(--color-text-muted);
 }
 
 .studio-video-frame {
   overflow: hidden;
   aspect-ratio: 9 / 16;
-  border: 1px solid rgba(82, 58, 40, 0.12);
+  border: 1px solid var(--color-border);
   border-radius: 20px;
-  background: #1f1a17;
+  background: var(--color-plum);
 }
 
 .studio-video-frame iframe {
@@ -406,8 +416,8 @@ a {
   position: absolute;
   left: 1rem;
   top: -3rem;
-  background: #7a5430;
-  color: #fffaf5;
+  background: var(--color-plum);
+  color: var(--color-surface);
   padding: 0.75rem 1rem;
   border-radius: 12px;
 }

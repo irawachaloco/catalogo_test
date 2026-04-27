@@ -1,5 +1,7 @@
 import { type ImageAsset } from '@om-studio/shared-types';
 
+const withBasePath = (path: string) => `${import.meta.env.BASE_URL}${path}`.replace(/\/{2,}/g, '/');
+
 const encodeSvg = (svg: string) => `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 
 const createPlaceholderImage = (
@@ -44,7 +46,7 @@ const createPublicProductImageAsset = (
   fileName: string,
 ): ImageAsset => ({
   id,
-  src: `/images/products/${fileName}`,
+  src: withBasePath(`images/products/${fileName}`),
   storagePath: `images/products/${fileName}`,
   alt: {
     es: `${title} fotografiada en estudio`,

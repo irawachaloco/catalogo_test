@@ -33,6 +33,12 @@ describe('content selectors', () => {
     });
   });
 
+  it('resolves public product images from the configured app base path', () => {
+    const product = getProductById('luna-vessel', 'es');
+
+    expect(product?.primaryImageUrl).toBe('/images/products/luna-vessel-01.jpg');
+  });
+
   it('exposes static page copy and image strategy metadata', () => {
     const pageContent = getPageContent('en');
     const catalogSummary = getCatalogSummary();
