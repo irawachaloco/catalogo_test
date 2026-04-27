@@ -36,7 +36,9 @@ describe('content selectors', () => {
   it('resolves public product images from the configured app base path', () => {
     const product = getProductById('luna-vessel', 'es');
 
-    expect(product?.primaryImageUrl).toBe('/images/products/luna-vessel-01.jpg');
+    expect(product?.primaryImageUrl).toBe(
+      `${import.meta.env.BASE_URL}images/products/luna-vessel-01.jpg`.replace(/\/{2,}/g, '/'),
+    );
   });
 
   it('exposes static page copy and image strategy metadata', () => {
