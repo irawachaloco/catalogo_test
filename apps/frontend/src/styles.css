@@ -11,7 +11,8 @@
   --color-border: rgba(16, 80, 87, 0.16);
   --shadow-soft: 0 16px 40px rgba(64, 0, 54, 0.1);
 
-  font-family: 'Iowan Old Style', 'Palatino Linotype', serif;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: var(--color-text);
   background: var(--color-surface-muted);
   line-height: 1.5;
@@ -50,7 +51,7 @@ a {
 .panel {
   background: rgba(251, 247, 250, 0.9);
   border: 1px solid var(--color-border);
-  border-radius: 24px;
+  border-radius: 10px;
   box-shadow: var(--shadow-soft);
 }
 
@@ -103,16 +104,51 @@ a {
 .site-footer {
   background: rgba(251, 247, 250, 0.88);
   border: 1px solid var(--color-border);
-  border-radius: 24px;
+  border-radius: 10px;
   box-shadow: var(--shadow-soft);
 }
 
 .site-header {
+  position: relative;
+  overflow: hidden;
   display: flex;
   justify-content: space-between;
   gap: 1.5rem;
   align-items: flex-end;
   padding: 1.25rem 1.5rem;
+}
+
+.site-header::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+  background:
+    linear-gradient(90deg, rgba(251, 247, 250, 0.62), rgba(251, 247, 250, 0.28)),
+    radial-gradient(circle at 18% 30%, rgba(255, 129, 208, 0.1), transparent 28%),
+    radial-gradient(circle at 78% 18%, rgba(16, 80, 87, 0.1), transparent 30%);
+  z-index: 1;
+}
+
+.brand-block,
+.header-actions {
+  position: relative;
+  z-index: 2;
+}
+
+.animated-header-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  background: var(--color-surface-muted);
+}
+
+@keyframes header-particle-orbit {
+  100% {
+    transform: translate3d(0, 0, 1px) rotate(360deg);
+  }
 }
 
 .brand-tagline,
@@ -141,7 +177,7 @@ a {
 .site-nav a {
   display: inline-flex;
   padding: 0.5rem 0.8rem;
-  border-radius: 999px;
+  border-radius: 8px;
   color: var(--color-deep-teal);
 }
 
@@ -176,7 +212,7 @@ a {
   background: rgba(251, 247, 250, 0.94);
   color: var(--color-deep-teal);
   padding: 0.45rem 0.75rem;
-  border-radius: 999px;
+  border-radius: 8px;
   cursor: pointer;
   font: inherit;
 }
@@ -214,7 +250,7 @@ a {
   width: fit-content;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
+  border-radius: 8px;
   transition: background-color 160ms ease;
 }
 
@@ -244,7 +280,7 @@ a {
 .product-card-image,
 .product-detail-image {
   width: 100%;
-  border-radius: 20px;
+  border-radius: 8px;
   border: 1px solid var(--color-border);
   object-fit: cover;
 }
@@ -263,7 +299,7 @@ a {
 .product-card {
   background: rgba(251, 247, 250, 0.9);
   border: 1px solid var(--color-border);
-  border-radius: 24px;
+  border-radius: 10px;
   overflow: hidden;
   box-shadow: var(--shadow-soft);
 }
@@ -287,7 +323,7 @@ a {
 }
 
 .availability-chip {
-  border-radius: 999px;
+  border-radius: 6px;
   padding: 0.3rem 0.65rem;
   font-size: 0.82rem;
   white-space: nowrap;
@@ -384,7 +420,7 @@ a {
   overflow: hidden;
   aspect-ratio: 9 / 16;
   border: 1px solid var(--color-border);
-  border-radius: 20px;
+  border-radius: 8px;
   background: var(--color-plum);
 }
 
@@ -419,7 +455,7 @@ a {
   background: var(--color-plum);
   color: var(--color-surface);
   padding: 0.75rem 1rem;
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .skip-link:focus {
@@ -446,5 +482,11 @@ a {
 
   .site-nav {
     gap: 0.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-header-background span {
+    animation: none;
   }
 }

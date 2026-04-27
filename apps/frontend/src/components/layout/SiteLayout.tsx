@@ -3,6 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { getNavigation } from '../../content/selectors';
 import { useLocale } from '../../features/i18n/locale';
 import { getUiText } from '../../features/i18n/uiCopy';
+import { AnimatedHeaderBackground } from './AnimatedHeaderBackground';
 
 export function SiteLayout() {
   const { locale, setLocale } = useLocale();
@@ -15,7 +16,9 @@ export function SiteLayout() {
       </a>
 
       <header className="site-header">
-        <div>
+        <AnimatedHeaderBackground />
+
+        <div className="brand-block">
           <p className="eyebrow">OM Studio</p>
           <p className="brand-tagline">{getUiText('brandTagline', locale)}</p>
         </div>
