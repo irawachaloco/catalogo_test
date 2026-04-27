@@ -38,6 +38,31 @@ export function HomePage() {
           </div>
         </div>
       </section>
+
+      <section className="studio-video panel">
+        <div className="studio-video-copy">
+          <p className="eyebrow">OM Studio</p>
+          <h2>{pageContent.studioVideoTitle}</h2>
+          <p>{pageContent.studioVideoBody}</p>
+          <a
+            className="inline-link"
+            href={pageContent.studioVideoWatchUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {getUiText('watchOnYoutube', locale)}
+          </a>
+        </div>
+        <div className="studio-video-frame">
+          <iframe
+            src={pageContent.studioVideoEmbedUrl}
+            title={pageContent.studioVideoTitle}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            loading="lazy"
+          />
+        </div>
+      </section>
     </div>
   );
 }

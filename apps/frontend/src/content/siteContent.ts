@@ -15,6 +15,17 @@ export const siteContent: SitePageContent = {
       'Phase 2 establishes the static bilingual content that will power the public gallery.',
     ],
   },
+  studioVideoTitle: {
+    es: 'Un vistazo al taller',
+    en: 'A look inside the studio',
+  },
+  studioVideoBody: {
+    es: 'Video corto de OM Studio para mostrar el proceso, textura y presencia de las piezas.',
+    en: 'A short OM Studio video showing the process, texture, and presence of the pieces.',
+  },
+  studioVideoEmbedUrl:
+    'https://www.youtube.com/embed/hca7uYPtCuI?autoplay=1&mute=1&playsinline=1&loop=1&playlist=hca7uYPtCuI',
+  studioVideoWatchUrl: 'https://youtube.com/shorts/hca7uYPtCuI?si=ML01EHmwYoRWsccH',
   galleryIntro: {
     es: 'El catalogo inicial mezcla piezas disponibles y vendidas para validar estructura, copy e imagenes.',
     en: 'The initial catalog mixes available and sold pieces to validate structure, copy, and imagery.',

@@ -43,6 +43,10 @@ export interface SiteNavigationItem {
 export interface SitePageContent {
   heroTitle: LocalizedText;
   heroBody: LocalizedRichText;
+  studioVideoTitle: LocalizedText;
+  studioVideoBody: LocalizedText;
+  studioVideoEmbedUrl: string;
+  studioVideoWatchUrl: string;
   galleryIntro: LocalizedText;
   aboutTitle: LocalizedText;
   aboutBody: LocalizedRichText;

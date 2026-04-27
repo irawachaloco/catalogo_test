@@ -38,13 +38,16 @@ describe('content selectors', () => {
     const catalogSummary = getCatalogSummary();
 
     expect(pageContent.heroTitle).toContain('Contemporary ceramics');
+    expect(pageContent.studioVideoEmbedUrl).toBe(
+      'https://www.youtube.com/embed/hca7uYPtCuI?autoplay=1&mute=1&playsinline=1&loop=1&playlist=hca7uYPtCuI',
+    );
     expect(catalogSummary).toMatchObject({
       totalProducts: 3,
       availableProducts: 2,
       soldProducts: 1,
       imageStrategy: {
         baseDirectory: 'public/images/products',
-        placeholderMode: 'inline-svg',
+        placeholderMode: 'public-files-with-inline-svg-placeholders',
       },
     });
   });

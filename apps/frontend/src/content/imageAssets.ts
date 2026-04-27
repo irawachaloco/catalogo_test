@@ -38,15 +38,29 @@ const createImageAsset = (
   },
 });
 
+const createPublicProductImageAsset = (
+  id: string,
+  title: string,
+  fileName: string,
+): ImageAsset => ({
+  id,
+  src: `/images/products/${fileName}`,
+  storagePath: `images/products/${fileName}`,
+  alt: {
+    es: `${title} fotografiada en estudio`,
+    en: `${title} photographed in the studio`,
+  },
+});
+
 export const imageAssetStrategy = {
   baseDirectory: 'public/images/products',
   derivativeSizes: ['640w', '1280w'],
   format: 'jpg',
-  placeholderMode: 'inline-svg',
+  placeholderMode: 'public-files-with-inline-svg-placeholders',
 } as const;
 
 export const productImageAssets: Record<string, ImageAsset> = {
-  luna: createImageAsset('luna', 'Vasija Luna', '#c58652', '#efe3d4'),
+  luna: createPublicProductImageAsset('luna', 'Vasija Luna', 'luna-vessel-01.jpg'),
   tierra: createImageAsset('tierra', 'Cuenco Tierra', '#8f5b3c', '#e8dcc9'),
   rio: createImageAsset('rio', 'Jarron Rio', '#6d8c8b', '#e2ece9'),
 };

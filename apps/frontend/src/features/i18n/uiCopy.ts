@@ -25,6 +25,10 @@ export const uiCopy = {
     es: 'Conocer el estudio',
     en: 'Learn about the studio',
   },
+  watchOnYoutube: {
+    es: 'Ver en YouTube',
+    en: 'Watch on YouTube',
+  },
   browseCollection: {
     es: 'Explorar coleccion',
     en: 'Browse collection',

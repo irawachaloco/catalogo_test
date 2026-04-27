@@ -17,6 +17,10 @@ describe('App', () => {
     expect(
       screen.getByRole('heading', { name: /ceramica contemporanea para espacios cotidianos/i }),
     ).toBeInTheDocument();
+    expect(screen.getByTitle(/un vistazo al taller/i)).toHaveAttribute(
+      'src',
+      'https://www.youtube.com/embed/hca7uYPtCuI?autoplay=1&mute=1&playsinline=1&loop=1&playlist=hca7uYPtCuI',
+    );
 
     await user.click(screen.getByRole('button', { name: 'EN' }));
 
