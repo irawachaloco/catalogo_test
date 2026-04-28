@@ -5,6 +5,8 @@ import { useLocale } from '../../features/i18n/locale';
 import { getUiText } from '../../features/i18n/uiCopy';
 import { AnimatedHeaderBackground } from './AnimatedHeaderBackground';
 
+const logoSrc = `${import.meta.env.BASE_URL}HUMO_LOGO_negro_transparente.svg`;
+
 export function SiteLayout() {
   const { locale, setLocale } = useLocale();
   const navigation = getNavigation(locale);
@@ -19,7 +21,9 @@ export function SiteLayout() {
         <AnimatedHeaderBackground />
 
         <div className="brand-block">
-          <p className="eyebrow">OM Studio</p>
+          <NavLink to="/" aria-label="HUMO home" className="brand-logo-link">
+            <img className="brand-logo" src={logoSrc} alt="HUMO" />
+          </NavLink>
           <p className="brand-tagline">{getUiText('brandTagline', locale)}</p>
         </div>
 

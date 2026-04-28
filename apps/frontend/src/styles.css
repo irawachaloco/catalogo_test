@@ -136,6 +136,26 @@ a {
   z-index: 2;
 }
 
+.brand-block {
+  display: grid;
+  gap: 0.65rem;
+  min-width: min(18rem, 100%);
+}
+
+.brand-logo-link {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+}
+
+.brand-logo {
+  display: block;
+  width: clamp(4.25rem, 12vw, 6.75rem);
+  height: auto;
+  max-height: 4.25rem;
+  object-fit: contain;
+}
+
 .animated-header-background {
   position: absolute;
   inset: 0;
