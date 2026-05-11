@@ -12,11 +12,20 @@ export interface LocalizedRichText {
   en: string[];
 }
 
+export interface ImageVariant {
+  width: number;
+  src: string;
+  storagePath: string;
+}
+
 export interface ImageAsset {
   id: string;
   src: string;
+  srcSet?: string;
+  sizes?: string;
   storagePath: string;
   alt: LocalizedText;
+  variants?: ImageVariant[];
 }
 
 export interface ProductSummary {
@@ -25,6 +34,8 @@ export interface ProductSummary {
   price: number;
   availability: AvailabilityStatus;
   primaryImageUrl: string;
+  primaryImageSrcSet?: string;
+  primaryImageSizes?: string;
 }
 
 export interface ProductDetail extends ProductSummary {
@@ -32,6 +43,8 @@ export interface ProductDetail extends ProductSummary {
   dimensions: LocalizedText;
   material: LocalizedText;
   imageUrls: string[];
+  imageSrcSets?: Record<string, string>;
+  imageSizes?: string;
 }
 
 export interface SiteNavigationItem {
@@ -43,6 +56,8 @@ export interface SiteNavigationItem {
 export interface SitePageContent {
   heroTitle: LocalizedText;
   heroBody: LocalizedRichText;
+  studioBannerTitle: LocalizedText;
+  studioBannerBody: LocalizedText;
   studioVideoTitle: LocalizedText;
   studioVideoBody: LocalizedText;
   studioVideoEmbedUrl: string;

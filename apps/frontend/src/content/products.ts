@@ -4,6 +4,35 @@ import { productImageAssets } from './imageAssets';
 
 export const productSeedData: ProductDetail[] = [
   {
+    id: 'iron-oxide-vase',
+    name: {
+      es: 'Vaso Oxido de Hierro',
+      en: 'Iron Oxide Vase',
+    },
+    price: 1200,
+    availability: 'available',
+    primaryImageUrl: productImageAssets.ironOxideVase.src,
+    primaryImageSrcSet: productImageAssets.ironOxideVase.srcSet,
+    primaryImageSizes: productImageAssets.ironOxideVase.sizes,
+    description: {
+      es: 'Vaso de gres con esmalte de oxido de hierro, cocido a temperatura media.',
+      en: 'Stoneware vase with iron oxide glaze, fired at medium temperature.',
+    },
+    dimensions: {
+      es: '10 cm alto x 6 cm diametro',
+      en: '10 cm tall x 6 cm diameter',
+    },
+    material: {
+      es: 'Gres con esmalte de oxido de hierro, cocido a 1186 C',
+      en: 'Stoneware with iron oxide glaze, fired at 1186 C',
+    },
+    imageUrls: [productImageAssets.ironOxideVase.src],
+    imageSrcSets: {
+      [productImageAssets.ironOxideVase.src]: productImageAssets.ironOxideVase.srcSet ?? '',
+    },
+    imageSizes: productImageAssets.ironOxideVase.sizes,
+  },
+  {
     id: 'luna-vessel',
     name: {
       es: 'Vasija Luna',

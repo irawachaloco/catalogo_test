@@ -73,6 +73,41 @@ Preview the production build locally:
 npm run preview
 ```
 
+## Product Images
+
+Source product photos should be exported from RAW as high-quality JPG, PNG, or TIFF files in:
+
+```text
+apps/frontend/assets/product-sources/
+```
+
+Use a lowercase slug filename because it becomes the public asset name:
+
+```text
+apps/frontend/assets/product-sources/iron-oxide-vase.jpg
+```
+
+Generate responsive web images from the repo root:
+
+```bash
+npm run images:products
+```
+
+The generated files are written to:
+
+```text
+apps/frontend/public/images/products/
+```
+
+For `iron-oxide-vase.jpg`, the script creates:
+
+```text
+iron-oxide-vase-640w.jpg
+iron-oxide-vase-1280w.jpg
+```
+
+Register responsive image assets in `apps/frontend/src/content/imageAssets.ts`, then assign them to products in `apps/frontend/src/content/products.ts`.
+
 ## Test
 
 Run all workspace tests:

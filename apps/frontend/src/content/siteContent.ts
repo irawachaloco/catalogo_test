@@ -2,7 +2,7 @@ import { type SitePageContent } from '@om-studio/shared-types';
 
 export const siteContent: SitePageContent = {
   heroTitle: {
-    es: 'Ceramica contemporanea para espacios cotidianos',
+    es: 'Cerámica contemporánea para espacios cotidianos',
     en: 'Contemporary ceramics for everyday spaces',
   },
   heroBody: {
@@ -15,6 +15,14 @@ export const siteContent: SitePageContent = {
       'Phase 2 establishes the static bilingual content that will power the public gallery.',
     ],
   },
+  studioBannerTitle: {
+    es: 'Hecho en taller, en series pequeñas',
+    en: 'Made in the studio, in small batches',
+  },
+  studioBannerBody: {
+    es: 'Cada pieza puede presentar variaciones de textura, esmalte y forma propias del proceso cerámico artesanal.',
+    en: 'Each piece may show natural variations in texture, glaze, and form from the handmade ceramic process.',
+  },
   studioVideoTitle: {
     es: 'Un vistazo al taller',
     en: 'A look inside the studio',
@@ -24,7 +32,7 @@ export const siteContent: SitePageContent = {
     en: 'A short OM Studio video showing the process, texture, and presence of the pieces.',
   },
   studioVideoEmbedUrl:
-    'https://www.youtube.com/embed/hca7uYPtCuI?autoplay=1&mute=1&playsinline=1&loop=1&playlist=hca7uYPtCuI',
+    'https://www.youtube.com/embed/hca7uYPtCuI?autoplay=1&mute=1&playsinline=1',
   studioVideoWatchUrl: 'https://youtube.com/shorts/hca7uYPtCuI?si=ML01EHmwYoRWsccH',
   galleryIntro: {
     es: 'El catalogo inicial mezcla piezas disponibles y vendidas para validar estructura, copy e imagenes.',
@@ -36,7 +44,7 @@ export const siteContent: SitePageContent = {
   },
   aboutBody: {
     es: [
-      'OM Studio trabaja series cortas de ceramica utilitaria y decorativa.',
+      'OM Studio trabaja series cortas de cerámica utilitaria y decorativa.',
       'El contenido editorial vive en archivos TypeScript para mantener despliegues simples en GitHub Pages.',
     ],
     en: [
@@ -75,6 +83,11 @@ export const siteContent: SitePageContent = {
       id: 'contact',
       label: { es: 'Contacto', en: 'Contact' },
       href: '/contact',
+    },
+    {
+      id: 'components',
+      label: { es: 'Components', en: 'Components' },
+      href: '/components',
     },
   ],
 };

@@ -12,7 +12,7 @@ const getPrice = (price: number, locale: 'es' | 'en') =>
   }).format(price);
 
 export function ProductPage() {
-  const { locale } = useLocale();
+  const { locale, getLocalizedPath } = useLocale();
   const pageContent = getPageContent(locale);
   const { productId } = useParams();
   const product = productId ? getProductById(productId, locale) : undefined;
@@ -22,7 +22,7 @@ export function ProductPage() {
       <section className="panel page-heading">
         <h1>{getUiText('notFoundTitle', locale)}</h1>
         <p>{getUiText('notFoundBody', locale)}</p>
-        <Link className="inline-link" to="/gallery">
+        <Link className="inline-link" to={getLocalizedPath('/gallery')}>
           {getUiText('backToGallery', locale)}
         </Link>
       </section>
@@ -31,14 +31,21 @@ export function ProductPage() {
 
   return (
     <div className="page-stack">
-      <Link className="inline-link" to="/gallery">
+      <Link className="inline-link" to={getLocalizedPath('/gallery')}>
         {getUiText('backToGallery', locale)}
       </Link>
 
       <section className="product-detail">
         <div className="product-detail-gallery panel">
           {product.imageUrls.map((imageUrl) => (
-            <img key={imageUrl} src={imageUrl} alt={product.name} className="product-detail-image" />
+            <img
+              key={imageUrl}
+              src={imageUrl}
+              srcSet={product.imageSrcSets?.[imageUrl]}
+              sizes={product.imageSizes}
+              alt={product.name}
+              className="product-detail-image"
+            />
           ))}
         </div>
 

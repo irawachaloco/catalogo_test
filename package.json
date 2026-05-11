@@ -15,6 +15,7 @@
     "dev": "npm run dev -w @om-studio/frontend",
     "dev:frontend": "npm run dev -w @om-studio/frontend",
     "lint": "npm run lint --workspaces --if-present",
+    "images:products": "node scripts/optimize-product-images.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "preview": "npm run preview -w @om-studio/frontend",

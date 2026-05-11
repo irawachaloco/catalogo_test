@@ -53,6 +53,8 @@ export const getNavigation = (locale: SupportedLocale) =>
 export const getPageContent = (locale: SupportedLocale) => ({
   heroTitle: getLocalizedText(siteContent.heroTitle, locale),
   heroBody: getLocalizedRichText(siteContent.heroBody, locale),
+  studioBannerTitle: getLocalizedText(siteContent.studioBannerTitle, locale),
+  studioBannerBody: getLocalizedText(siteContent.studioBannerBody, locale),
   studioVideoTitle: getLocalizedText(siteContent.studioVideoTitle, locale),
   studioVideoBody: getLocalizedText(siteContent.studioVideoBody, locale),
   studioVideoEmbedUrl: siteContent.studioVideoEmbedUrl,

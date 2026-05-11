@@ -1,16 +1,32 @@
 import { Link } from 'react-router-dom';
 
+import { StudioOverlayBanner } from '../components/home/StudioOverlayBanner';
+import { StudioVideo } from '../components/home/StudioVideo';
 import { getFeaturedProduct, getPageContent } from '../content/selectors';
 import { useLocale } from '../features/i18n/locale';
 import { getUiText } from '../features/i18n/uiCopy';
 
+const studioBannerImageUrl = `${import.meta.env.BASE_URL}images/humo-banner-2026.jpg`;
+const homeStudioBannerCopy = {
+  eyebrow: 'Humo Estudio',
+  title: 'Hecho en taller, en series pequeñas',
+  body: 'Cerámica hecha a mano para la vida cotidiana y los espacios que la acompañan: piezas simples que encuentran belleza en la textura de la tierra.',
+};
+
 export function HomePage() {
-  const { locale } = useLocale();
+  const { locale, getLocalizedPath } = useLocale();
   const pageContent = getPageContent(locale);
   const featuredProduct = getFeaturedProduct(locale);
 
   return (
     <div className="page-stack">
+      <StudioOverlayBanner
+        imageUrl={studioBannerImageUrl}
+        eyebrow={homeStudioBannerCopy.eyebrow}
+        title={homeStudioBannerCopy.title}
+        body={homeStudioBannerCopy.body}
+      />
+
       <section className="hero hero-home">
         <div className="hero-copy">
           <p className="eyebrow">{getUiText('featuredLabel', locale)}</p>
@@ -21,16 +37,21 @@ export function HomePage() {
             ))}
           </div>
           <div className="hero-actions">
-            <Link className="button-link" to="/gallery">
+            <Link className="button-link" to={getLocalizedPath('/gallery')}>
               {getUiText('viewGallery', locale)}
             </Link>
-            <Link className="button-link button-link-secondary" to="/about">
+            <Link className="button-link button-link-secondary" to={getLocalizedPath('/about')}>
               {getUiText('learnMore', locale)}
             </Link>
           </div>
         </div>
         <div className="hero-visual panel">
-          <img src={featuredProduct.primaryImageUrl} alt={featuredProduct.name} />
+          <img
+            src={featuredProduct.primaryImageUrl}
+            srcSet={featuredProduct.primaryImageSrcSet}
+            sizes={featuredProduct.primaryImageSizes}
+            alt={featuredProduct.name}
+          />
           <div className="hero-visual-copy">
             <h2>{featuredProduct.name}</h2>
             <p>{featuredProduct.description}</p>
@@ -39,30 +60,13 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="studio-video panel">
-        <div className="studio-video-copy">
-          <p className="eyebrow">OM Studio</p>
-          <h2>{pageContent.studioVideoTitle}</h2>
-          <p>{pageContent.studioVideoBody}</p>
-          <a
-            className="inline-link"
-            href={pageContent.studioVideoWatchUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {getUiText('watchOnYoutube', locale)}
-          </a>
-        </div>
-        <div className="studio-video-frame">
-          <iframe
-            src={pageContent.studioVideoEmbedUrl}
-            title={pageContent.studioVideoTitle}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            loading="lazy"
-          />
-        </div>
-      </section>
+      <StudioVideo
+        title={pageContent.studioVideoTitle}
+        body={pageContent.studioVideoBody}
+        embedUrl={pageContent.studioVideoEmbedUrl}
+        watchUrl={pageContent.studioVideoWatchUrl}
+        watchLabel={getUiText('watchOnYoutube', locale)}
+      />
     </div>
   );
 }

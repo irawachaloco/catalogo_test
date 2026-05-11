@@ -54,6 +54,35 @@ const createPublicProductImageAsset = (
   },
 });
 
+const createResponsiveProductImageAsset = (
+  id: string,
+  title: string,
+  baseFileName: string,
+): ImageAsset => {
+  const variants = [640, 1280].map((width) => {
+    const fileName = `${baseFileName}-${width}w.jpg`;
+
+    return {
+      width,
+      src: withBasePath(`images/products/${fileName}`),
+      storagePath: `images/products/${fileName}`,
+    };
+  });
+
+  return {
+    id,
+    src: variants[variants.length - 1].src,
+    srcSet: variants.map((variant) => `${variant.src} ${variant.width}w`).join(', '),
+    sizes: '(max-width: 640px) 100vw, (max-width: 960px) 50vw, 33vw',
+    storagePath: variants[variants.length - 1].storagePath,
+    alt: {
+      es: `${title} fotografiada en estudio`,
+      en: `${title} photographed in the studio`,
+    },
+    variants,
+  };
+};
+
 export const imageAssetStrategy = {
   baseDirectory: 'public/images/products',
   derivativeSizes: ['640w', '1280w'],
@@ -63,6 +92,11 @@ export const imageAssetStrategy = {
 
 export const productImageAssets: Record<string, ImageAsset> = {
   luna: createPublicProductImageAsset('luna', 'Vasija Luna', 'luna-vessel-01.jpg'),
+  ironOxideVase: createResponsiveProductImageAsset(
+    'iron-oxide-vase',
+    'Vaso de oxido de hierro',
+    'iron-oxide-vase',
+  ),
   tierra: createImageAsset('tierra', 'Cuenco Tierra', '#8f5b3c', '#e8dcc9'),
   rio: createImageAsset('rio', 'Jarron Rio', '#6d8c8b', '#e2ece9'),
 };
