@@ -16,12 +16,14 @@ export function App() {
       <Routes>
         <Route element={<SiteLayout />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/coleccion" element={<GalleryPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/product/:productId" element={<ProductPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/components" element={<ComponentsPage />} />
           <Route path="/en" element={<HomePage />} />
+          <Route path="/en/coleccion" element={<GalleryPage />} />
           <Route path="/en/gallery" element={<GalleryPage />} />
           <Route path="/en/product/:productId" element={<ProductPage />} />
           <Route path="/en/about" element={<AboutPage />} />

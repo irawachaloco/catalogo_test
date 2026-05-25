@@ -1,4 +1,7 @@
+import { CategoriesSection } from '../components/home/CategoriesSection';
+import { CurrentCollection } from '../components/home/CurrentCollection';
 import { FullWidthBanner } from '../components/home/FullWidthBanner';
+import { MaterialsProcessSection } from '../components/home/MaterialsProcessSection';
 import { StudioBanner } from '../components/home/StudioBanner';
 import { StudioOverlayBanner } from '../components/home/StudioOverlayBanner';
 import { StudioVideo } from '../components/home/StudioVideo';
@@ -52,6 +55,21 @@ export function ComponentsPage() {
         <article className="component-demo component-demo-card">
           <h2>{getUiText('componentProductCard', locale)}</h2>
           <ProductCard product={featuredProduct} />
+        </article>
+
+        <article className="component-demo">
+          <h2>Current Collection</h2>
+          <CurrentCollection />
+        </article>
+
+        <article className="component-demo">
+          <h2>Categories</h2>
+          <CategoriesSection />
+        </article>
+
+        <article className="component-demo">
+          <h2>Materials and Glazes / Process</h2>
+          <MaterialsProcessSection />
         </article>
 
         <article className="component-demo">

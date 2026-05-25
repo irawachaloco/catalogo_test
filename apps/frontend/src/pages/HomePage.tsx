@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+import { CurrentCollection } from '../components/home/CurrentCollection';
 import { StudioOverlayBanner } from '../components/home/StudioOverlayBanner';
 import { StudioVideo } from '../components/home/StudioVideo';
 import { getFeaturedProduct, getPageContent } from '../content/selectors';
@@ -59,6 +60,8 @@ export function HomePage() {
           </div>
         </div>
       </section>
+
+      <CurrentCollection />
 
       <StudioVideo
         title={pageContent.studioVideoTitle}
