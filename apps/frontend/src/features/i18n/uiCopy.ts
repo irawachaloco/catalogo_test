@@ -17,6 +17,34 @@ export const uiCopy = {
     es: 'Pieza destacada',
     en: 'Featured piece',
   },
+  homeHeroTitle: {
+    es: 'Cerámica hecha a mano para la vida cotidiana y los espacios que la acompañan.',
+    en: 'Handmade ceramics for everyday life and the spaces around it.',
+  },
+  homeHeroBodyPrimary: {
+    es: 'Humo Estudio es un micro-taller de cerámica de autor dedicado a crear piezas funcionales y ornamentales en gres: tazas, vasos, platos, floreros y objetos para el hogar.',
+    en: 'Humo Estudio is a small author ceramics studio dedicated to functional and ornamental stoneware: cups, vessels, plates, vases, and objects for the home.',
+  },
+  homeHeroBodySecondary: {
+    es: 'Cada pieza se trabaja en series pequeñas, con superficies que evocan la tierra agrietada, la corteza y la materia transformada por el fuego.',
+    en: 'Each piece is made in small batches, with surfaces that evoke cracked earth, bark, and material transformed by fire.',
+  },
+  viewPieces: {
+    es: 'Ver piezas',
+    en: 'View pieces',
+  },
+  learnStudio: {
+    es: 'Conocer el taller',
+    en: 'Learn about the studio',
+  },
+  heroImagesLabel: {
+    es: 'Imagenes del hero',
+    en: 'Hero images',
+  },
+  showHeroImage: {
+    es: 'Mostrar imagen',
+    en: 'Show image',
+  },
   viewGallery: {
     es: 'Ver galeria',
     en: 'View gallery',

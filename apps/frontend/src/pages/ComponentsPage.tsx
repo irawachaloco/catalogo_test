@@ -51,13 +51,22 @@ export function ComponentsPage() {
         <article className="component-demo">
           <h2>Hero</h2>
           <HeroSection
+            title={getUiText('homeHeroTitle', locale)}
+            body={[
+              getUiText('homeHeroBodyPrimary', locale),
+              getUiText('homeHeroBodySecondary', locale),
+            ]}
             imageUrl={pencilCupsHeroImage1920Url}
             imageSrcSet={`${pencilCupsHeroImage1280Url} 1280w, ${pencilCupsHeroImage1920Url} 1920w`}
             imageSizes="(max-width: 880px) 100vw, 54vw"
             imageAlt={heroImages[0].alt}
             images={heroImages}
             piecesHref={getLocalizedPath('/gallery')}
+            piecesLabel={getUiText('viewPieces', locale)}
             studioHref={getLocalizedPath('/about')}
+            studioLabel={getUiText('learnStudio', locale)}
+            sliderLabel={getUiText('heroImagesLabel', locale)}
+            showImageLabel={(index) => `${getUiText('showHeroImage', locale)} ${index}`}
           />
         </article>
 

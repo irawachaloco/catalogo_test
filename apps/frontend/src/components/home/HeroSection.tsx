@@ -9,23 +9,35 @@ interface HeroImage {
 }
 
 interface HeroSectionProps {
+  title: string;
+  body: string[];
   imageUrl: string;
   imageAlt: string;
   imageSrcSet?: string;
   imageSizes?: string;
   images?: HeroImage[];
   piecesHref: string;
+  piecesLabel: string;
   studioHref: string;
+  studioLabel: string;
+  sliderLabel: string;
+  showImageLabel: (index: number) => string;
 }
 
 export function HeroSection({
+  title,
+  body,
   imageUrl,
   imageAlt,
   imageSrcSet,
   imageSizes,
   images,
   piecesHref,
+  piecesLabel,
   studioHref,
+  studioLabel,
+  sliderLabel,
+  showImageLabel,
 }: HeroSectionProps) {
   const slides = images?.length
     ? images
@@ -51,26 +63,18 @@ export function HeroSection({
   return (
     <section className="editorial-hero" aria-labelledby="editorial-hero-title">
       <div className="editorial-hero-copy">
-        <h1 id="editorial-hero-title">
-          Cerámica hecha a mano para la vida cotidiana y los espacios que la acompañan.
-        </h1>
+        <h1 id="editorial-hero-title">{title}</h1>
         <div className="copy-stack">
-          <p>
-            Humo Estudio es un micro-taller de cerámica de autor dedicado a crear piezas
-            funcionales y ornamentales en gres: tazas, vasos, platos, floreros y objetos para el
-            hogar.
-          </p>
-          <p>
-            Cada pieza se trabaja en series pequeñas, con superficies que evocan la tierra
-            agrietada, la corteza y la materia transformada por el fuego.
-          </p>
+          {body.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </div>
         <div className="hero-actions">
           <Link className="button-link" to={piecesHref}>
-            Ver piezas
+            {piecesLabel}
           </Link>
           <Link className="button-link button-link-secondary" to={studioHref}>
-            Conocer el taller
+            {studioLabel}
           </Link>
         </div>
       </div>
@@ -82,7 +86,7 @@ export function HeroSection({
           alt={activeSlide.alt}
         />
         {hasMultipleSlides ? (
-          <div className="editorial-hero-slider-controls" aria-label="Imagenes del Hero">
+          <div className="editorial-hero-slider-controls" aria-label={sliderLabel}>
             <div className="editorial-hero-slider-dots">
               {slides.map((slide, index) => (
                 <button
@@ -90,7 +94,7 @@ export function HeroSection({
                   className={index === activeSlideIndex ? 'is-active' : undefined}
                   key={slide.src}
                   onClick={() => setActiveSlideIndex(index)}
-                  aria-label={`Mostrar imagen ${index + 1}`}
+                  aria-label={showImageLabel(index + 1)}
                   aria-current={index === activeSlideIndex}
                 />
               ))}

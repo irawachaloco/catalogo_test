@@ -15,21 +15,22 @@ describe('App', () => {
     );
 
     expect(
-      screen.getByRole('heading', { name: /contemporary ceramics for everyday spaces/i }),
+      screen.getByRole('heading', {
+        name: /handmade ceramics for everyday life and the spaces around it/i,
+      }),
     ).toBeInTheDocument();
     expect(document.documentElement).toHaveAttribute('lang', 'en');
-    expect(screen.getByTitle(/a look inside the studio/i)).toHaveAttribute(
-      'src',
-      'https://www.youtube.com/embed/hca7uYPtCuI?autoplay=1&mute=1&playsinline=1',
-    );
+    expect(screen.getByRole('link', { name: /view pieces/i })).toBeInTheDocument();
 
     await user.click(screen.getByRole('link', { name: 'ES' }));
 
     expect(
-      screen.getByRole('heading', { name: /cerámica contemporánea para espacios cotidianos/i }),
+      screen.getByRole('heading', {
+        name: /cerámica hecha a mano para la vida cotidiana y los espacios que la acompañan/i,
+      }),
     ).toBeInTheDocument();
     expect(document.documentElement).toHaveAttribute('lang', 'es');
-    expect(screen.getByRole('link', { name: /ver galeria/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /ver piezas/i })).toBeInTheDocument();
   });
 
   it('renders the product detail route with browser-detected English locale', () => {
