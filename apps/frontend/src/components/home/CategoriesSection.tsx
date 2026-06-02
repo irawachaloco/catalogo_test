@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { categoryImageAssets } from '../../content/imageAssets';
+import { currentCollectionImageAssets } from '../../content/imageAssets';
 import { getLocalizedText } from '../../content/selectors';
 import { useLocale } from '../../features/i18n/locale';
 
@@ -11,7 +11,7 @@ const categories = [
     description: 'Platos, vasos, tazas y bowls.',
     cta: 'Ver mesa',
     href: '/gallery',
-    image: categoryImageAssets.mesa,
+    image: currentCollectionImageAssets[1],
   },
   {
     id: 'objetos',
@@ -19,7 +19,7 @@ const categories = [
     description: 'Jarrones, contenedores y piezas ornamentales.',
     cta: 'Ver objetos',
     href: '/gallery',
-    image: categoryImageAssets.objetos,
+    image: currentCollectionImageAssets[2],
   },
   {
     id: 'series-pequenas',
@@ -27,7 +27,7 @@ const categories = [
     description: 'Piezas disponibles por colección y temporada.',
     cta: 'Ver series pequeñas',
     href: '/coleccion',
-    image: categoryImageAssets.seriesPequenas,
+    image: currentCollectionImageAssets[0],
   },
 ];
 
@@ -35,12 +35,7 @@ export function CategoriesSection() {
   const { locale, getLocalizedPath } = useLocale();
 
   return (
-    <section className="categories-section panel" aria-labelledby="categories-section-title">
-      <div className="categories-section-heading">
-        <p className="eyebrow">Categories</p>
-        <h2 id="categories-section-title">Categories</h2>
-      </div>
-
+    <section className="categories-section panel" aria-label="Categories">
       <div className="category-card-grid">
         {categories.map((category) => (
           <Link
@@ -51,6 +46,8 @@ export function CategoriesSection() {
           >
             <img
               src={category.image.src}
+              srcSet={category.image.srcSet}
+              sizes={category.image.sizes}
               alt={getLocalizedText(category.image.alt, locale)}
               loading="lazy"
             />

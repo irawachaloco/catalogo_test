@@ -1,74 +1,61 @@
-import { Link } from 'react-router-dom';
-
+import { CategoriesSection } from '../components/home/CategoriesSection';
 import { CurrentCollection } from '../components/home/CurrentCollection';
-import { StudioOverlayBanner } from '../components/home/StudioOverlayBanner';
-import { StudioVideo } from '../components/home/StudioVideo';
-import { getFeaturedProduct, getPageContent } from '../content/selectors';
+import { FullWidthOverlayBanner } from '../components/home/FullWidthOverlayBanner';
+import { HeroSection } from '../components/home/HeroSection';
+import { MaterialsProcessSection } from '../components/home/MaterialsProcessSection';
+import { getPageContent } from '../content/selectors';
 import { useLocale } from '../features/i18n/locale';
 import { getUiText } from '../features/i18n/uiCopy';
 
 const studioBannerImageUrl = `${import.meta.env.BASE_URL}images/humo-banner-2026.jpg`;
-const homeStudioBannerCopy = {
-  eyebrow: 'Humo Estudio',
-  title: 'Hecho en taller, en series pequeñas',
-  body: 'Cerámica hecha a mano para la vida cotidiana y los espacios que la acompañan: piezas simples que encuentran belleza en la textura de la tierra.',
-};
+const pencilCupsHeroImage1280Url = `${import.meta.env.BASE_URL}images/hero/lapiceros-2-1280w.jpg`;
+const pencilCupsHeroImage1920Url = `${import.meta.env.BASE_URL}images/hero/lapiceros-2-1920w.jpg`;
+const pencilCupHeroImage1280Url = `${import.meta.env.BASE_URL}images/hero/lapiceros-1280w.jpg`;
+const pencilCupHeroImage1920Url = `${import.meta.env.BASE_URL}images/hero/lapiceros-1920w.jpg`;
+const heroImages = [
+  {
+    src: pencilCupsHeroImage1920Url,
+    srcSet: `${pencilCupsHeroImage1280Url} 1280w, ${pencilCupsHeroImage1920Url} 1920w`,
+    sizes: '(max-width: 880px) 100vw, 54vw',
+    alt: 'Lapiceros de cerámica hechos a mano',
+  },
+  {
+    src: pencilCupHeroImage1920Url,
+    srcSet: `${pencilCupHeroImage1280Url} 1280w, ${pencilCupHeroImage1920Url} 1920w`,
+    sizes: '(max-width: 880px) 100vw, 54vw',
+    alt: 'Lapicero de cerámica hecho a mano',
+  },
+];
 
 export function HomePage() {
   const { locale, getLocalizedPath } = useLocale();
   const pageContent = getPageContent(locale);
-  const featuredProduct = getFeaturedProduct(locale);
 
   return (
     <div className="page-stack">
-      <StudioOverlayBanner
-        imageUrl={studioBannerImageUrl}
-        eyebrow={homeStudioBannerCopy.eyebrow}
-        title={homeStudioBannerCopy.title}
-        body={homeStudioBannerCopy.body}
+      <HeroSection
+        imageUrl={pencilCupsHeroImage1920Url}
+        imageSrcSet={`${pencilCupsHeroImage1280Url} 1280w, ${pencilCupsHeroImage1920Url} 1920w`}
+        imageSizes="(max-width: 880px) 100vw, 54vw"
+        imageAlt={heroImages[0].alt}
+        images={heroImages}
+        piecesHref={getLocalizedPath('/gallery')}
+        studioHref={getLocalizedPath('/about')}
       />
-
-      <section className="hero hero-home">
-        <div className="hero-copy">
-          <p className="eyebrow">{getUiText('featuredLabel', locale)}</p>
-          <h1>{pageContent.heroTitle}</h1>
-          <div className="copy-stack">
-            {pageContent.heroBody.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-          <div className="hero-actions">
-            <Link className="button-link" to={getLocalizedPath('/gallery')}>
-              {getUiText('viewGallery', locale)}
-            </Link>
-            <Link className="button-link button-link-secondary" to={getLocalizedPath('/about')}>
-              {getUiText('learnMore', locale)}
-            </Link>
-          </div>
-        </div>
-        <div className="hero-visual panel">
-          <img
-            src={featuredProduct.primaryImageUrl}
-            srcSet={featuredProduct.primaryImageSrcSet}
-            sizes={featuredProduct.primaryImageSizes}
-            alt={featuredProduct.name}
-          />
-          <div className="hero-visual-copy">
-            <h2>{featuredProduct.name}</h2>
-            <p>{featuredProduct.description}</p>
-            <p className="hero-detail-line">{featuredProduct.availabilityLabel}</p>
-          </div>
-        </div>
-      </section>
 
       <CurrentCollection />
 
-      <StudioVideo
-        title={pageContent.studioVideoTitle}
-        body={pageContent.studioVideoBody}
-        embedUrl={pageContent.studioVideoEmbedUrl}
-        watchUrl={pageContent.studioVideoWatchUrl}
-        watchLabel={getUiText('watchOnYoutube', locale)}
+      <CategoriesSection />
+
+      <MaterialsProcessSection />
+
+      <FullWidthOverlayBanner
+        imageUrl={studioBannerImageUrl}
+        title={pageContent.studioBannerTitle}
+        body={pageContent.studioBannerBody}
+        ctaHref={getLocalizedPath('/about')}
+        ctaLabel={getUiText('learnMore', locale)}
+        align="right"
       />
     </div>
   );

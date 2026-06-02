@@ -60,7 +60,6 @@ export function MaterialsProcessSection() {
     <section className="materials-process-section panel" aria-labelledby="materials-process-title">
       <div className="materials-glazes" aria-labelledby="materials-process-title">
         <div className="materials-glazes-copy">
-          <p className="eyebrow">Materials and Glazes</p>
           <h2 id="materials-process-title">Materials and Glazes</h2>
           <p>Mid-fire stoneware, vitrified, impermeable, and suitable for table use.</p>
         </div>
@@ -77,22 +76,32 @@ export function MaterialsProcessSection() {
 
       <div className="process-section" aria-labelledby="materials-process-process-title">
         <div className="process-section-heading">
-          <p className="eyebrow">Process</p>
           <h2 id="materials-process-process-title">Process</h2>
-          <p>Variations in texture, tone, and surface are part of the studio’s language.</p>
         </div>
 
         <div className="process-step-grid">
           {processSteps.map((step) => (
-            <figure className="process-step" key={step.id}>
+            <figure className="process-step" key={step.id} aria-label={step.caption}>
               <img
                 src={step.image.src}
+                srcSet={step.image.srcSet}
+                sizes={step.image.sizes}
                 alt={getLocalizedText(step.image.alt, locale)}
                 loading="lazy"
               />
-              <figcaption>{step.caption}</figcaption>
             </figure>
           ))}
+        </div>
+
+        <div className="process-caption-stack">
+          <div className="process-caption-grid" aria-label="Process steps">
+            {processSteps.map((step) => (
+              <p className="process-step-caption" key={step.id}>
+                {step.caption}
+              </p>
+            ))}
+          </div>
+          <p>Variations in texture, tone, and surface are part of the studio’s language.</p>
         </div>
       </div>
     </section>

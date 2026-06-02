@@ -40,19 +40,6 @@ const createImageAsset = (
   },
 });
 
-const createCollectionImageAsset = (
-  id: string,
-  title: string,
-  accent: string,
-  base: string,
-  alt: ImageAsset['alt'],
-): ImageAsset => ({
-  id,
-  src: createPlaceholderImage(title, accent, base, '#3a2417'),
-  storagePath: `images/collections/corteza/${id}.jpg`,
-  alt,
-});
-
 const createCategoryImageAsset = (
   id: string,
   title: string,
@@ -63,19 +50,6 @@ const createCategoryImageAsset = (
   id,
   src: createPlaceholderImage(title, accent, base, '#3a2417'),
   storagePath: `images/categories/${id}.jpg`,
-  alt,
-});
-
-const createProcessImageAsset = (
-  id: string,
-  title: string,
-  accent: string,
-  base: string,
-  alt: ImageAsset['alt'],
-): ImageAsset => ({
-  id,
-  src: createPlaceholderImage(title, accent, base, '#3a2417'),
-  storagePath: `images/process/${id}.jpg`,
   alt,
 });
 
@@ -122,6 +96,33 @@ const createResponsiveProductImageAsset = (
   };
 };
 
+const createResponsiveHeroImageAsset = (
+  id: string,
+  title: string,
+  baseFileName: string,
+  alt: ImageAsset['alt'],
+): ImageAsset => {
+  const variants = [1280, 1920].map((width) => {
+    const fileName = `${baseFileName}-${width}w.jpg`;
+
+    return {
+      width,
+      src: withBasePath(`images/hero/${fileName}`),
+      storagePath: `images/hero/${fileName}`,
+    };
+  });
+
+  return {
+    id,
+    src: variants[variants.length - 1].src,
+    srcSet: variants.map((variant) => `${variant.src} ${variant.width}w`).join(', '),
+    sizes: '(max-width: 640px) 100vw, (max-width: 880px) 50vw, 33vw',
+    storagePath: variants[variants.length - 1].storagePath,
+    alt,
+    variants,
+  };
+};
+
 export const imageAssetStrategy = {
   baseDirectory: 'public/images/products',
   derivativeSizes: ['640w', '1280w'],
@@ -141,34 +142,27 @@ export const productImageAssets: Record<string, ImageAsset> = {
 };
 
 export const currentCollectionImageAssets: ImageAsset[] = [
-  createCollectionImageAsset(
-    'corteza-cylindrical-vessel',
-    'Corteza vessel slot',
-    '#8f5b3c',
-    '#e8dcc9',
+  createResponsiveProductImageAsset(
+    'iron-oxide-vase',
+    'Vaso de oxido de hierro',
+    'iron-oxide-vase',
+  ),
+  createResponsiveHeroImageAsset(
+    'taza-gde',
+    'Taza grande',
+    'taza-gde',
     {
-      es: 'Vaso cilindrico de ceramica de la coleccion Corteza con superficie texturizada',
-      en: 'Cylindrical ceramic vessel from the Corteza collection with a textured surface',
+      es: 'Taza grande de ceramica hecha a mano',
+      en: 'Large handmade ceramic cup',
     },
   ),
-  createCollectionImageAsset(
-    'corteza-blue-bowl',
-    'Corteza blue bowl slot',
-    '#105057',
-    '#d8e2df',
+  createResponsiveHeroImageAsset(
+    'taza-ch',
+    'Taza chica',
+    'taza-ch',
     {
-      es: 'Cuenco de ceramica de la coleccion Corteza con esmalte azul oscuro jaspeado',
-      en: 'Ceramic bowl from the Corteza collection with a dark variegated blue glaze',
-    },
-  ),
-  createCollectionImageAsset(
-    'corteza-still-life',
-    'Corteza still life slot',
-    '#919151',
-    '#efe7d8',
-    {
-      es: 'Composicion de la coleccion Corteza con jarron, pieza pequena y rama seca',
-      en: 'Corteza collection composition with a vase, small ceramic piece, and dry branch',
+      es: 'Taza chica de ceramica hecha a mano',
+      en: 'Small handmade ceramic cup',
     },
   ),
 ];
@@ -195,26 +189,40 @@ export const categoryImageAssets: Record<string, ImageAsset> = {
 };
 
 export const processImageAssets: Record<string, ImageAsset> = {
-  clayBodyTexture: createProcessImageAsset(
+  clayBodyTexture: createResponsiveHeroImageAsset(
     'clay-body-texture',
-    'Clay texture slot',
-    '#8f5b3c',
-    '#e8dcc9',
+    'Piezas en el horno',
+    'piezas-en-el-horno-azul-y-ocre',
     {
       es: 'Textura de barro crudo con herramientas de taller',
       en: 'Raw clay texture with studio tools',
     },
   ),
-  drying: createProcessImageAsset('drying-shelf', 'Drying shelf slot', '#919151', '#efe7d8', {
-    es: 'Piezas de ceramica sin cocer reposando durante el secado',
-    en: 'Unfired ceramic pieces resting during drying',
-  }),
-  glazing: createProcessImageAsset('glazing-tools', 'Glazing tools slot', '#105057', '#d8e2df', {
-    es: 'Herramientas y superficie de trabajo para aplicar esmalte ceramico',
-    en: 'Tools and work surface for applying ceramic glaze',
-  }),
-  firing: createProcessImageAsset('kiln-firing', 'Kiln firing slot', '#7e3f2c', '#ead8c8', {
-    es: 'Detalle calido del horno y el proceso de quema ceramica',
-    en: 'Warm detail of the kiln and ceramic firing process',
-  }),
+  drying: createResponsiveHeroImageAsset(
+    'drying-shelf',
+    'Piezas en el horno',
+    'piezas-en-el-horno-azul-y-ocre',
+    {
+      es: 'Piezas de ceramica sin cocer reposando durante el secado',
+      en: 'Unfired ceramic pieces resting during drying',
+    },
+  ),
+  glazing: createResponsiveHeroImageAsset(
+    'glazing-tools',
+    'Piezas en el horno',
+    'piezas-en-el-horno-azul-y-ocre',
+    {
+      es: 'Herramientas y superficie de trabajo para aplicar esmalte ceramico',
+      en: 'Tools and work surface for applying ceramic glaze',
+    },
+  ),
+  firing: createResponsiveHeroImageAsset(
+    'kiln-firing',
+    'Piezas en el horno',
+    'piezas-en-el-horno-azul-y-ocre',
+    {
+      es: 'Detalle calido del horno y el proceso de quema ceramica',
+      en: 'Warm detail of the kiln and ceramic firing process',
+    },
+  ),
 };

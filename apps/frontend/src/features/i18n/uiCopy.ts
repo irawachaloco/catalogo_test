@@ -101,6 +101,14 @@ export const uiCopy = {
     es: 'Banner con texto superpuesto',
     en: 'Banner with overlay text',
   },
+  componentFullWidthOverlayBanner: {
+    es: 'Banner de ancho completo con texto superpuesto',
+    en: 'Full-width banner with overlay text',
+  },
+  componentFullWidthOverlayBannerReverse: {
+    es: 'Banner de ancho completo con texto superpuesto a la derecha',
+    en: 'Full-width banner with overlay text on right',
+  },
   componentProductCard: {
     es: 'Tarjeta de producto',
     en: 'Product card',

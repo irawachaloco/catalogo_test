@@ -33,7 +33,13 @@ export function CurrentCollection() {
             key={image.id}
             to={getLocalizedPath('/coleccion')}
           >
-            <img src={image.src} alt={getLocalizedText(image.alt, locale)} loading="lazy" />
+            <img
+              src={image.src}
+              srcSet={image.srcSet}
+              sizes={image.sizes}
+              alt={getLocalizedText(image.alt, locale)}
+              loading="lazy"
+            />
           </Link>
         ))}
       </div>
